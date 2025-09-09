@@ -1,19 +1,25 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getDatabase, ref, get, set, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-// 🔧 Ganti config ini dengan punyamu dari Firebase
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "API_KEY",
-  authDomain: "pemilu-osis.firebaseapp.com",
-  databaseURL: "https://pemilu-osis-default-rtdb.firebaseio.com",
-  projectId: "pemilu-osis",
-  storageBucket: "pemilu-osis.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "APP_ID"
+  apiKey: "AIzaSyCCYfAGsELjM6bFIO-fFE1YOTfT9uLWETg",
+  authDomain: "pemilu-osis-1a131.firebaseapp.com",
+  databaseURL: "https://pemilu-osis-1a131-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "pemilu-osis-1a131",
+  storageBucket: "pemilu-osis-1a131.firebasestorage.app",
+  messagingSenderId: "247452424893",
+  appId: "1:247452424893:web:ee6ed5b995a48f3d3a35d4",
+  measurementId: "G-4YE8K3402N"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+const analytics = getAnalytics(app);
 
 // Data Kandidat
 const candidates = [
@@ -92,3 +98,4 @@ onValue(votesRef, snapshot => {
     `;
   });
 });
+
