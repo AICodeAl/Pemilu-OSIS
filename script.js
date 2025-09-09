@@ -44,6 +44,11 @@ onAuthStateChanged(auth, (user) => {
         onDisconnect(userRef).remove();  // hapus saat disconnect
       }
     });
+
+    // Hapus data saat tab/browser ditutup
+    window.addEventListener("beforeunload", () => {
+      set(userRef, null);
+    });
   }
 });
 
@@ -134,3 +139,4 @@ onValue(votesRef, snapshot => {
     `;
   });
 });
+
