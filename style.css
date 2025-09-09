@@ -1,25 +1,19 @@
 body {
   font-family: 'Poppins', sans-serif;
-  background: #f8f9fa;
+  background: #fdf5e6; /* coklat lembut */
 }
 
 /* Header */
 header {
-  background: linear-gradient(135deg, #0d6efd, #6610f2);
+  background: linear-gradient(135deg, #6f4e37, #a0522d);
   color: #fff;
   padding: 3rem 1rem;
   text-align: center;
 }
 header img {
-  width: 100px;         /* ukuran seragam */
-  height: auto;         /* biar nggak gepeng */
+  width: 100px;
   margin-bottom: 15px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;   /* center */
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); /* efek bayangan */
 }
-
 
 /* Card Kandidat */
 .candidate-card {
@@ -32,15 +26,15 @@ header img {
   box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 .candidate-card img {
+  height: 250px;
+  object-fit: contain; /* gambar tidak terpotong */
   width: 100%;
-  height: auto;        /* biar tinggi menyesuaikan */
-  object-fit: contain; /* gambar tampil full tanpa terpotong */
-  background: #f1f1f1; /* kasih background abu muda kalau ada ruang kosong */
-  border-bottom: 5px solid #007bff;
+  background: #fff;
+  border-bottom: 5px solid #6f4e37;
 }
 .vote-count {
   font-weight: bold;
-  color: #0d6efd;
+  color: #6f4e37;
 }
 
 /* Leaderboard */
