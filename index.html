@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pemilu OSIS SMAN 2 Tilatang Kamang</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -22,17 +22,13 @@
   <div class="container my-5">
     <div class="row row-cols-1 row-cols-md-3 g-4" id="candidateList"></div>
   </div>
-  
-  <div class="alert alert-info text-center mt-3">
-    👥 Jumlah Pengunjung Online: <span id="onlineCount">0</span>
-  </div>
-  
+
   <!-- Leaderboard -->
   <div class="container leaderboard">
     <h2 class="text-center mb-3">📊 Leaderboard Hasil Sementara</h2>
     <div class="table-responsive">
       <table class="table table-striped table-bordered align-middle text-center">
-        <thead class="table-dark">
+        <thead class="table-primary">
           <tr>
             <th>Ranking</th>
             <th>Nama Calon</th>
@@ -55,8 +51,6 @@
         <div class="modal-body">
           <p id="candidateVisi"></p>
           <p id="candidateMisi"></p>
-
-
         </div>
       </div>
     </div>
@@ -67,11 +61,10 @@
     <p>&copy; 2025 SMAN 2 Tilatang Kamang | Panitia Pemilu OSIS</p>
   </footer>
 
-  <!-- Firebase + Script -->
-  <script type="module" src="script.js"></script>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-database.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
-
-
-
