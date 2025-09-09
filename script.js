@@ -1,4 +1,4 @@
-// Import Firebase SDKs dari CDN
+// Import Firebase SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
 import { getDatabase, ref, get, set, onValue, onDisconnect } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -16,62 +16,55 @@ const firebaseConfig = {
   measurementId: "G-4YE8K3402N"
 };
 
-// Initialize Firebase
+// Init Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+getAnalytics(app);
 const db = getDatabase(app);
-const auth = getAuth(app);
+const auth = getAuth();
 
-// 🔹 Sign-in anonim
+// Login anonim
 signInAnonymously(auth).catch((error) => {
   console.error("Auth error:", error);
 });
 
-// 🔹 Deteksi user online & disconnect
 onAuthStateChanged(auth, (user) => {
   if (user) {
     const uid = user.uid;
     const userRef = ref(db, "onlineUsers/" + uid);
-
-    // User online
     set(userRef, true);
-
-    // Hapus saat disconnect
     onDisconnect(userRef).remove();
   }
 });
 
-// 🔹 Hitung jumlah user online
+// Hitung user online
 const onlineRef = ref(db, "onlineUsers/");
 onValue(onlineRef, (snapshot) => {
   const onlineUsers = snapshot.val() || {};
-  const count = Object.keys(onlineUsers).length;
-  const counter = document.getElementById("onlineCount");
-  if (counter) counter.textContent = count;
+  document.getElementById("onlineCount").textContent = Object.keys(onlineUsers).length;
 });
 
-// 🔹 Data Kandidat
+// Data kandidat (7 orang)
 const candidates = [
-  {id:1, name:"WAHYU HADITYA", img:"img/calon1.jpg", visi:"Menjadikan OSIS lebih aktif dan kreatif.", misi:"Meningkatkan kegiatan ekstrakurikuler, mempererat solidaritas siswa."},
-  {id:2, name:"REHAN SABPUTRA", img:"img/calon2.jpg", visi:"OSIS sebagai wadah inovasi siswa.", misi:"Mengembangkan program berbasis teknologi & lingkungan."},
-  {id:3, name:"AISYAH RAHMI FITRI", img:"img/calon3.jpg", visi:"Membangun budaya disiplin.", misi:"Menumbuhkan sikap tanggung jawab & kepemimpinan."},
-  {id:4, name:"TYA SALSABILA", img:"img/calon4.jpg", visi:"OSIS inklusif untuk semua siswa.", misi:"Memberikan ruang untuk semua bakat tanpa diskriminasi."},
-  {id:5, name:"ARIEL PUTRA RAMADHAN", img:"img/calon5.jpg", visi:"OSIS yang peduli sosial.", misi:"Meningkatkan program bakti sosial & kepedulian lingkungan."},
-  {id:6, name:"DEVI PIRDIANITA", img:"img/calon6.jpg", visi:"OSIS modern berbasis digital.", misi:"Membuat sistem informasi kegiatan OSIS online."},
-  {id:7, name:"RAISHA FATIHA SABRINA", img:"img/calon7.jpg", visi:"Menjadi teladan siswa berprestasi.", misi:"Fokus pada peningkatan akademik & lomba sekolah."},
+  {id:"1", name:"WAHYU HADITYA", img:"img/calon1.jpg", visi:"Menjadikan OSIS lebih aktif dan kreatif.", misi:"Meningkatkan kegiatan ekstrakurikuler, mempererat solidaritas siswa."},
+  {id:"2", name:"REHAN SABPUTRA", img:"img/calon2.jpg", visi:"OSIS sebagai wadah inovasi siswa.", misi:"Mengembangkan program berbasis teknologi & lingkungan."},
+  {id:"3", name:"AISYAH RAHMI FITRI", img:"img/calon3.jpg", visi:"Membangun budaya disiplin.", misi:"Menumbuhkan sikap tanggung jawab & kepemimpinan."},
+  {id:"4", name:"TYA SALSABILA", img:"img/calon4.jpg", visi:"OSIS inklusif untuk semua siswa.", misi:"Memberikan ruang untuk semua bakat tanpa diskriminasi."},
+  {id:"5", name:"ARIEL PUTRA RAMADHAN", img:"img/calon5.jpg", visi:"OSIS yang peduli sosial.", misi:"Meningkatkan program bakti sosial & kepedulian lingkungan."},
+  {id:"6", name:"DEVI PIRDIANITA", img:"img/calon6.jpg", visi:"OSIS modern berbasis digital.", misi:"Membuat sistem informasi kegiatan OSIS online."},
+  {id:"7", name:"RAISHA FATIHA SABRINA", img:"img/calon7.jpg", visi:"Menjadi teladan siswa berprestasi.", misi:"Fokus pada peningkatan akademik & lomba sekolah."},
 ];
 
-// 🔹 Render Kandidat
+// Render kandidat
 const candidateList = document.getElementById("candidateList");
 candidates.forEach(c => {
   const col = document.createElement("div");
   col.className = "col";
   col.innerHTML = `
     <div class="card candidate-card h-100">
-      <img src="${c.img}" class="card-img-top" alt="${c.name}" onclick="showVisiMisi(${c.id})">
+      <img src="${c.img}" class="card-img-top" alt="${c.name}" onclick="showVisiMisi('${c.id}')">
       <div class="card-body text-center">
         <h5 class="card-title">${c.name}</h5>
-        <button class="btn btn-success" onclick="voteCandidate(${c.id})">Vote</button>
+        <button class="btn btn-success" onclick="voteCandidate('${c.id}')">Vote</button>
         <p class="mt-2">Suara: <span id="vote-${c.id}" class="vote-count">0</span></p>
       </div>
     </div>
@@ -79,7 +72,7 @@ candidates.forEach(c => {
   candidateList.appendChild(col);
 });
 
-// 🔹 Voting
+// Voting
 window.voteCandidate = function(candidateId) {
   if (localStorage.getItem("hasVoted")) {
     Swal.fire("Oops!", "Kamu sudah memberikan suara!", "warning");
@@ -97,7 +90,7 @@ window.voteCandidate = function(candidateId) {
   });
 };
 
-// 🔹 Show Visi Misi
+// Modal visi misi
 window.showVisiMisi = function(id) {
   const candidate = candidates.find(c => c.id === id);
   document.getElementById("candidateName").textContent = candidate.name;
@@ -106,7 +99,7 @@ window.showVisiMisi = function(id) {
   new bootstrap.Modal(document.getElementById("visiMisiModal")).show();
 };
 
-// 🔹 Leaderboard Live
+// Leaderboard live
 const votesRef = ref(db, 'votes/');
 onValue(votesRef, snapshot => {
   const data = snapshot.val() || {};
