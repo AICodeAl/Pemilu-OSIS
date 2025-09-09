@@ -1,11 +1,9 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+// Import Firebase SDKs
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+import { getDatabase, ref, get, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Konfigurasi Firebase (punya project kamu)
 const firebaseConfig = {
   apiKey: "AIzaSyCCYfAGsELjM6bFIO-fFE1YOTfT9uLWETg",
   authDomain: "pemilu-osis-1a131.firebaseapp.com",
@@ -20,6 +18,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const db = getDatabase(app);
 
 // Data Kandidat
 const candidates = [
@@ -62,6 +61,9 @@ window.voteCandidate = function(candidateId) {
     set(voteRef, currentVotes + 1);
     localStorage.setItem("hasVoted", "true");
     Swal.fire("Terima Kasih!", "Suaramu berhasil disimpan.", "success");
+  }).catch(err => {
+    console.error("Error saat vote:", err);
+    Swal.fire("Error", "Gagal menyimpan suara ke Firebase", "error");
   });
 };
 
@@ -98,4 +100,3 @@ onValue(votesRef, snapshot => {
     `;
   });
 });
-
