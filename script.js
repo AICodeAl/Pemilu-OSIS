@@ -22,6 +22,12 @@ getAnalytics(app);
 const db = getDatabase(app);
 const auth = getAuth();
 
+// --- Presence (jumlah user online) ---
+import { onValue, set, ref, onDisconnect } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+const auth = getAuth(app);
+
 // Login anonim
 signInAnonymously(auth).catch((error) => {
   console.error("Auth error:", error);
@@ -31,8 +37,15 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     const uid = user.uid;
     const userRef = ref(db, "onlineUsers/" + uid);
-    set(userRef, true);
-    onDisconnect(userRef).remove();
+
+    // Gunakan koneksi bawaan Firebase
+    const connectedRef = ref(db, ".info/connected");
+    onValue(connectedRef, (snap) => {
+      if (snap.val() === true) {
+        set(userRef, true);              // tandai online
+        onDisconnect(userRef).remove();  // hapus saat disconnect
+      }
+    });
   }
 });
 
@@ -40,7 +53,8 @@ onAuthStateChanged(auth, (user) => {
 const onlineRef = ref(db, "onlineUsers/");
 onValue(onlineRef, (snapshot) => {
   const onlineUsers = snapshot.val() || {};
-  document.getElementById("onlineCount").textContent = Object.keys(onlineUsers).length;
+  const count = Object.keys(onlineUsers).length;
+  document.getElementById("onlineCount").textContent = count;
 });
 
 // Data kandidat (7 orang)
@@ -122,3 +136,4 @@ onValue(votesRef, snapshot => {
     `;
   });
 });
+
