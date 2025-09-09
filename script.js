@@ -19,6 +19,38 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getDatabase(app);
+import { getDatabase, ref, onDisconnect, set, onValue } from "firebase/database";
+import { getAuth, signInAnonymously, onAuthStateChanged } from "firebase/auth";
+
+// Inisialisasi Database & Auth
+const db = getDatabase();
+const auth = getAuth();
+
+// Sign-in anonim (biar setiap user punya ID unik)
+signInAnonymously(auth).catch((error) => {
+  console.error("Auth error:", error);
+});
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const uid = user.uid;
+    const userRef = ref(db, "onlineUsers/" + uid);
+
+    // Tandai user online
+    set(userRef, true);
+
+    // Hapus data kalau user disconnect/close browser
+    onDisconnect(userRef).remove();
+  }
+});
+
+// 🔥 Hitung jumlah user online
+const onlineRef = ref(db, "onlineUsers/");
+onValue(onlineRef, (snapshot) => {
+  const onlineUsers = snapshot.val() || {};
+  const count = Object.keys(onlineUsers).length;
+  document.getElementById("onlineCount").textContent = count;
+});
 
 // Data Kandidat
 const candidates = [
@@ -100,3 +132,4 @@ onValue(votesRef, snapshot => {
     `;
   });
 });
+
