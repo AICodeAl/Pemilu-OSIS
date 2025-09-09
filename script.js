@@ -1,4 +1,4 @@
-// Data calonimport { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getDatabase, ref, get, set, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 // 🔧 Ganti config ini dengan punyamu dari Firebase
@@ -27,10 +27,10 @@ const candidates = [
 ];
 
 // Render Kandidat
-const container = document.getElementById("candidatesContainer");
+const candidateList = document.getElementById("candidateList");
 candidates.forEach(c => {
   const col = document.createElement("div");
-  col.className = "col-md-4 mb-4";
+  col.className = "col";
   col.innerHTML = `
     <div class="card candidate-card h-100">
       <img src="${c.img}" class="card-img-top" alt="${c.name}" onclick="showVisiMisi(${c.id})">
@@ -41,13 +41,13 @@ candidates.forEach(c => {
       </div>
     </div>
   `;
-  container.appendChild(col);
+  candidateList.appendChild(col);
 });
 
 // Voting
 window.voteCandidate = function(candidateId) {
   if (localStorage.getItem("hasVoted")) {
-    alert("Kamu sudah memberikan suara!");
+    Swal.fire("Oops!", "Kamu sudah memberikan suara!", "warning");
     return;
   }
   const voteRef = ref(db, 'votes/' + candidateId);
@@ -55,15 +55,16 @@ window.voteCandidate = function(candidateId) {
     let currentVotes = snapshot.exists() ? snapshot.val() : 0;
     set(voteRef, currentVotes + 1);
     localStorage.setItem("hasVoted", "true");
+    Swal.fire("Terima Kasih!", "Suaramu berhasil disimpan.", "success");
   });
 };
 
 // Show Visi Misi
 window.showVisiMisi = function(id) {
   const candidate = candidates.find(c => c.id === id);
-  document.getElementById("modalTitle").textContent = candidate.name;
-  document.getElementById("modalVisi").textContent = candidate.visi;
-  document.getElementById("modalMisi").textContent = candidate.misi;
+  document.getElementById("candidateName").textContent = candidate.name;
+  document.getElementById("candidateVisi").textContent = "Visi: " + candidate.visi;
+  document.getElementById("candidateMisi").textContent = "Misi: " + candidate.misi;
   new bootstrap.Modal(document.getElementById("visiMisiModal")).show();
 };
 
@@ -91,6 +92,3 @@ onValue(votesRef, snapshot => {
     `;
   });
 });
-
-
-
