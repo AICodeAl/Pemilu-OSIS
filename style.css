@@ -1,61 +1,57 @@
+/* Background gradient biru + pattern */
 body {
+  margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: #fdf5e6; /* coklat lembut */
+  background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+  background-attachment: fixed;
+  background-size: cover;
+  position: relative;
+}
+
+/* Pattern overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.15'%3E%3Ccircle cx='20' cy='20' r='2'/%3E%3C/g%3E%3C/svg%3E");
+  z-index: 0;
+}
+
+/* Layer konten biar di atas pattern */
+header, .container, footer {
+  position: relative;
+  z-index: 1;
 }
 
 /* Header */
 header {
-  background: linear-gradient(135deg, #6f4e37, #a0522d);
-  color: #fff;
-  padding: 3rem 1rem;
   text-align: center;
+  padding: 40px 20px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 12px;
+  margin: 20px auto;
+  max-width: 900px;
 }
 header img {
-  width: 100px;
+  width: 90px;
   margin-bottom: 15px;
 }
-
-/* Card Kandidat */
-.candidate-card {
-  transition: transform 0.3s, box-shadow 0.3s;
-  border-radius: 15px;
-  overflow: hidden;
+header h1 {
+  color: #0077ff;
 }
-.candidate-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+header h3 {
+  color: #005bb5;
 }
-.candidate-card img {
-  height: 250px;
-  object-fit: contain; /* gambar tidak terpotong */
-  width: 100%;
-  background: #fff;
-  border-bottom: 5px solid #6f4e37;
-}
-.vote-count {
-  font-weight: bold;
-  color: #6f4e37;
-}
-
-/* Leaderboard */
-.leaderboard {
-  margin-top: 3rem;
-}
-.leaderboard table {
-  border-radius: 10px;
-  overflow: hidden;
-}
-.leaderboard tbody tr:first-child {
-  background: #fff3cd !important;
-  font-weight: bold;
+header p {
+  color: #333;
 }
 
 /* Footer */
 footer {
-  background: #212529;
-  color: #ddd;
   text-align: center;
-  padding: 1.2rem;
-  margin-top: 3rem;
+  padding: 20px;
+  background: rgba(255,255,255,0.9);
+  margin-top: 40px;
+  border-radius: 12px 12px 0 0;
 }
-
