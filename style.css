@@ -1,14 +1,21 @@
 /* Background gradien */
 body {
+
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #b3e5fc, #e1f5fe);
   min-height: 100vh;
+
+
 }
 
 /* Logo OSIS */
 .osis-logo {
   width: 100px;
   height: auto;
+
+
+
+
 }
 
 /* Card kandidat */
@@ -22,12 +29,19 @@ body {
 
 .candidate-card:hover {
   transform: translateY(-5px);
+
+
+
+
+
+
 }
 
 .candidate-card img {
   width: 100%;
   height: 250px;
   object-fit: cover;
+
 }
 
 /* Tombol vote */
@@ -46,4 +60,8 @@ table {
 thead {
   background: #0288d1;
   color: white;
+
+
+
+
 }
