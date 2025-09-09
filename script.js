@@ -1,10 +1,14 @@
-// Import Firebase SDKs
+// ==================== IMPORT FIREBASE ====================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
-import { getDatabase, ref, get, set, onValue, onDisconnect } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { 
+  getDatabase, ref, get, set, onValue, onDisconnect 
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { 
+  getAuth, signInAnonymously, onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-// Konfigurasi Firebase
+// ==================== KONFIGURASI FIREBASE ====================
 const firebaseConfig = {
   apiKey: "AIzaSyCCYfAGsELjM6bFIO-fFE1YOTfT9uLWETg",
   authDomain: "pemilu-osis-1a131.firebaseapp.com",
@@ -20,15 +24,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 getAnalytics(app);
 const db = getDatabase(app);
-const auth = getAuth();
-
-// --- Presence (jumlah user online) ---
-import { onValue, set, ref, onDisconnect } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
 const auth = getAuth(app);
 
-// Login anonim
+// ==================== PRESENCE (JUMLAH USER ONLINE) ====================
 signInAnonymously(auth).catch((error) => {
   console.error("Auth error:", error);
 });
@@ -57,7 +55,7 @@ onValue(onlineRef, (snapshot) => {
   document.getElementById("onlineCount").textContent = count;
 });
 
-// Data kandidat (7 orang)
+// ==================== DATA KANDIDAT ====================
 const candidates = [
   {id:"1", name:"WAHYU HADITYA", img:"img/calon1.jpg", visi:"Menjadikan OSIS lebih aktif dan kreatif.", misi:"Meningkatkan kegiatan ekstrakurikuler, mempererat solidaritas siswa."},
   {id:"2", name:"REHAN SABPUTRA", img:"img/calon2.jpg", visi:"OSIS sebagai wadah inovasi siswa.", misi:"Mengembangkan program berbasis teknologi & lingkungan."},
@@ -86,7 +84,7 @@ candidates.forEach(c => {
   candidateList.appendChild(col);
 });
 
-// Voting
+// ==================== VOTING ====================
 window.voteCandidate = function(candidateId) {
   if (localStorage.getItem("hasVoted")) {
     Swal.fire("Oops!", "Kamu sudah memberikan suara!", "warning");
@@ -104,7 +102,7 @@ window.voteCandidate = function(candidateId) {
   });
 };
 
-// Modal visi misi
+// ==================== MODAL VISI MISI ====================
 window.showVisiMisi = function(id) {
   const candidate = candidates.find(c => c.id === id);
   document.getElementById("candidateName").textContent = candidate.name;
@@ -113,7 +111,7 @@ window.showVisiMisi = function(id) {
   new bootstrap.Modal(document.getElementById("visiMisiModal")).show();
 };
 
-// Leaderboard live
+// ==================== LEADERBOARD LIVE ====================
 const votesRef = ref(db, 'votes/');
 onValue(votesRef, snapshot => {
   const data = snapshot.val() || {};
@@ -136,4 +134,3 @@ onValue(votesRef, snapshot => {
     `;
   });
 });
-
