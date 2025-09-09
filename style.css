@@ -27,7 +27,7 @@ header img {
 }
 .candidate-card img {
   height: 250px;
-  object-fit: contain; /* gambar full tidak terpotong */
+  object-fit: contain; /* gambar tidak terpotong */
   width: 100%;
   background: #fff;
   border-bottom: 5px solid #6f4e37;
@@ -58,3 +58,4 @@ footer {
   padding: 1.2rem;
   margin-top: 3rem;
 }
+
