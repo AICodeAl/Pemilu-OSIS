@@ -17,13 +17,13 @@ const db = getDatabase(app);
 
 // Data Kandidat
 const candidates = [
-  {id:1, name:"WAHYU HADITYA", img:"calon1.jpg", visi:"Menjadikan OSIS lebih aktif dan kreatif.", misi:"Meningkatkan kegiatan ekstrakurikuler, mempererat solidaritas siswa."},
-  {id:2, name:"REHAN SABPUTRA", img:"calon2.jpg", visi:"OSIS sebagai wadah inovasi siswa.", misi:"Mengembangkan program berbasis teknologi & lingkungan."},
-  {id:3, name:"AISYAH RAHMI FITRI", img:"calon3.jpg", visi:"Membangun budaya disiplin.", misi:"Menumbuhkan sikap tanggung jawab & kepemimpinan."},
-  {id:4, name:"TYA SALSABILA", img:"calon4.jpg", visi:"OSIS inklusif untuk semua siswa.", misi:"Memberikan ruang untuk semua bakat tanpa diskriminasi."},
-  {id:5, name:"ARIEL PUTRA RAMADHAN", img:"calon5.jpg", visi:"OSIS yang peduli sosial.", misi:"Meningkatkan program bakti sosial & kepedulian lingkungan."},
-  {id:6, name:"DEVI PIRDIANITA", img:"calon6.jpg", visi:"OSIS modern berbasis digital.", misi:"Membuat sistem informasi kegiatan OSIS online."},
-  {id:7, name:"RAISHA FATIHA SABRINA", img:"calon7.jpg", visi:"Menjadi teladan siswa berprestasi.", misi:"Fokus pada peningkatan akademik & lomba sekolah."},
+  {id:1, name:"WAHYU HADITYA", img:"img/calon1.jpg", visi:"Menjadikan OSIS lebih aktif dan kreatif.", misi:"Meningkatkan kegiatan ekstrakurikuler, mempererat solidaritas siswa."},
+  {id:2, name:"REHAN SABPUTRA", img:"img/calon2.jpg", visi:"OSIS sebagai wadah inovasi siswa.", misi:"Mengembangkan program berbasis teknologi & lingkungan."},
+  {id:3, name:"AISYAH RAHMI FITRI", img:"img/calon3.jpg", visi:"Membangun budaya disiplin.", misi:"Menumbuhkan sikap tanggung jawab & kepemimpinan."},
+  {id:4, name:"TYA SALSABILA", img:"img/calon4.jpg", visi:"OSIS inklusif untuk semua siswa.", misi:"Memberikan ruang untuk semua bakat tanpa diskriminasi."},
+  {id:5, name:"ARIEL PUTRA RAMADHAN", img:"img/calon5.jpg", visi:"OSIS yang peduli sosial.", misi:"Meningkatkan program bakti sosial & kepedulian lingkungan."},
+  {id:6, name:"DEVI PIRDIANITA", img:"img/calon6.jpg", visi:"OSIS modern berbasis digital.", misi:"Membuat sistem informasi kegiatan OSIS online."},
+  {id:7, name:"RAISHA FATIHA SABRINA", img:"img/calon7.jpg", visi:"Menjadi teladan siswa berprestasi.", misi:"Fokus pada peningkatan akademik & lomba sekolah."},
 ];
 
 // Render Kandidat
@@ -91,5 +91,6 @@ onValue(votesRef, snapshot => {
     `;
   });
 });
+
 
 
